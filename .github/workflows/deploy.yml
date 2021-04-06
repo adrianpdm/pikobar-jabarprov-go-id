@@ -13,6 +13,7 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
+
     - name: Get last deployment timestamp on Netlify
       uses: fjogeleit/http-request-action@master
       id: lastDeployment
@@ -20,6 +21,7 @@ jobs:
         url: 'https://api.netlify.com/api/v1/sites/${{ secrets.NETLIFY_SITE_ID }}'
         method: 'GET'
         customHeaders: '{"User-Agent":"${{ secrets.NETLIFY_SITE_ID }} (${{ secrets.NETLIFY_USER_EMAIL }})","Authorization":"Bearer ${{ secrets.NETLIFY_ACCESS_TOKEN }}","Accept":"application/json"}'
+
     - name: Set last deployment timestamp as env variable
       env:
         PUBLISHED_DEPLOY: ${{ steps.lastDeployment.outputs.response.published_deploy }} 
@@ -30,6 +32,7 @@ jobs:
         else
           echo "LAST_DEPLOY=${{ steps.lastDeployment.outputs.response.published_deploy.published_at }}" >> $GITHUB_ENV
         fi
+
     - name: Check firebase credentials
       env:
         FIREBASE_SDK_CONFIG: ${{ secrets.FIREBASE_SDK_CONFIG }}
@@ -49,6 +52,7 @@ jobs:
         else
           echo "firebase admin config is set"
         fi
+
     - name: Cache node modules
       id: node-modules-cache
       uses: actions/cache@v2
@@ -57,9 +61,30 @@ jobs:
       with:
         path: ~/.npm
         key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+
     - name: Install Dependencies
-      if: steps.node-modules-cache.outputs.cache-hit != 'true'
+      if: ${{ steps.node-modules-cache.outputs.cache-hit != 'true' }}
       run: |
         echo "Installing NPM packages"
         npm install
+
+    - name: Cache article items from Firebase
+      id: articles-cache
+      uses: actions/cache@v2
+      env:
+        FILE_PATH: pages/articles/_slug.vue
+      with:
+        path: $FILE_PATH
+        key: cache-pages-articles-slug-${{ hashFiles('$FILE_PATH') }}
+
+    - name: Determine whether firebase items must be fetched wholefully or not
+      env:
+        ARTICLES_CACHE_HIT: ${{ steps.articles-cache.outputs.cache-hit }}
+      run: |
+        if [ $ARTICLES_CACHE_HIT == 'true']
+        then
+          echo "FIREBASE_FETCH_ALL=0" >> $GITHUB_ENV
+        else
+          echo "FIREBASE_FETCH_ALL=1" >> $GITHUB_ENV
+        fi
     

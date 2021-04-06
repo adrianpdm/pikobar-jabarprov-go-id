@@ -38,17 +38,19 @@ jobs:
         if [ -z "$FIREBASE_SDK_CONFIG"]
         then
           echo "firebase sdk config is nil"
+          exit 1
         else
           echo "firebase sdk config is set"
         fi
         if [ -z "$FIREBASE_ADMIN_CONFIG"]
         then
           echo "firebase admin config is nil"
+          exit 1
         else
           echo "firebase admin config is set"
         fi
     - name: Cache node modules
-      if: ${{ false }}
+      id: node-modules-cache
       uses: actions/cache@v2
       env:
         cache-name: cache-node-modules
@@ -56,6 +58,8 @@ jobs:
         path: ~/.npm
         key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
     - name: Install Dependencies
-      if: ${{ false }}
-      run: npm install
+      if: steps.node-modules-cache.outputs.cache-hit != 'true'
+      run: |
+        echo "Installing NPM packages"
+        npm install
     

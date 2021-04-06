@@ -27,7 +27,7 @@ jobs:
         if [ -z "$PUBLISHED_DEPLOY" ]
         then
           echo "LAST_DEPLOY=-1" >> $GITHUB_ENV
-        elif
+        else
           echo "LAST_DEPLOY=${{ steps.lastDeployment.outputs.response.published_deploy.published_at }}"" >> $GITHUB_ENV
         fi
     - name: Check last deployment timestamp value

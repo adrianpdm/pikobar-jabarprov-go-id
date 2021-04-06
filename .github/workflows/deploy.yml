@@ -20,6 +20,16 @@ jobs:
         url: 'https://api.netlify.com/api/v1/sites/${{ secrets.NETLIFY_SITE_ID }}'
         method: 'GET'
         customHeaders: '{"User-Agent":"${{ secrets.NETLIFY_SITE_ID }} (${{ secrets.NETLIFY_USER_EMAIL }})","Authorization":"Bearer ${{ secrets.NETLIFY_ACCESS_TOKEN }}","Accept":"application/json"}'
-    - name: Set last deployment timestamp as runner variable
+    - name: Set last deployment timestamp as env variable
+      env:
+        PUBLISHED_DEPLOY: ${{ steps.lastDeployment.outputs.response.published_deploy }} 
       run: |
-        echo ${{ steps.lastDeployment.outputs.response }}
+        if [ -z "$PUBLISHED_DEPLOY" ]
+        then
+          echo "LAST_DEPLOY=-1" >> $GITHUB_ENV
+        elif
+          echo "LAST_DEPLOY=${{ steps.lastDeployment.outputs.response.published_deploy.published_at }}"" >> $GITHUB_ENV
+        fi
+    - name: Check last deployment timestamp value
+      run: |
+        echo ${{ env.LAST_DEPLOY }}

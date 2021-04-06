@@ -1,0 +1,25 @@
+name: Deploy
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+    types: [opened, synchronize, reopened]
+jobs:
+  deploy:
+    runs-on: ubuntu-16.04
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Get last deployment timestamp on Netlify
+      uses: fjogeleit/http-request-action@master
+      id: lastDeployment
+      with:
+        url: 'https://api.netlify.com/api/v1/sites/{{ $secrets.NETLIFY_SITE_ID }}'
+        method: 'GET'
+        customHeaders: '{"User-Agent":"{{ $secrets.NETLIFY_SITE_ID }} ({{ $secrets.NETLIFY_USER_EMAIL }})","Authorization":"Bearer {{ $secrets.NETLIFY_ACCESS_TOKEN }}","Accept":"application/json"}'
+    - name: Set last deployment timestamp as runner variable
+      run: |
+        echo ${{ steps.lastDeployment.outputs.response }}

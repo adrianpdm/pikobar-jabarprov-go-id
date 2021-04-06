@@ -106,7 +106,7 @@
         </div>
         <div class="mt-5 text-sm">
           <span>
-            Update Terakhir: {{ date_update }}
+            Update Terakhir: {{ data.rdt.tanggal }}
           </span>
         </div>
       </div>
@@ -134,7 +134,7 @@
 
 <script>
 import { ContentLoader } from 'vue-content-loader'
-import moment from 'moment'
+import { formatDateDayIndonesia } from '~/lib/date'
 
 export default {
   name: 'DataRDT',
@@ -178,6 +178,7 @@ export default {
   watch: {
     dataKasusTotal (val) {
       this.jsonDataKasusTotal = val[0]
+      this.data.rdt.tanggal = formatDateDayIndonesia(this.jsonDataKasusTotal.rdt_tanggal)
       this.data.rdt.total = this.jsonDataKasusTotal.rdt_total
       this.data.rdt.positif = this.jsonDataKasusTotal.rdt_positif
       this.data.rdt.negatif = this.jsonDataKasusTotal.rdt_negatif
@@ -188,7 +189,7 @@ export default {
     },
     dataKasusTotalMetadata (val) {
       this.metadata = val
-      this.date_update = moment(this.metadata.last_update, 'YYYY-MM-DD').lang('id').format('dddd, DD MMM YYYY')
+      this.date_update = formatDateDayIndonesia(this.metadata.last_update)
     }
   },
   mounted () {

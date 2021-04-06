@@ -118,6 +118,11 @@ export default {
           alt: 'Ikatan Senat Mahasiswa Kedokteran Indonesia',
           url: 'http://ismki.org',
           height: '10em'
+        },
+        {
+          logo: 'https://firebasestorage.googleapis.com/v0/b/jabarprov-covid19.appspot.com/o/public%2Flaporcovid19.png?alt=media&token=54989efc-a16c-42d2-b03f-2343147937d3',
+          alt: 'Lapor Covid-19',
+          url: 'https://laporcovid19.org/'
         }
       ]
     }

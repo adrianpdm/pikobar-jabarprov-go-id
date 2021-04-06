@@ -315,7 +315,7 @@ import {
   faTimesCircle
 } from '@fortawesome/free-solid-svg-icons'
 import _orderBy from 'lodash/orderBy'
-import moment from 'moment'
+import { formatDateIndonesia } from '~/lib/date'
 
 export default {
   name: 'SuspectCaseListIstilahBaru',
@@ -462,11 +462,11 @@ export default {
       this.dataCase = dataCase
 
       const lastUpdate = this.metadataSebaranPertumbuhan.last_update
-      this.dateH1 = moment(lastUpdate).locale('id').format('DD MMMM YYYY')
+      this.dateH1 = formatDateIndonesia(lastUpdate)
     }
   },
   created () {
-    this.dateH1 = moment(new Date()).locale('id').format('DD MMMM YYYY')
+    this.dateH1 = formatDateIndonesia(new Date())
   },
   mounted () {
     this.getDataSebaranPertumbuhan(this.activeRegionCategory, this.activeRegionId)

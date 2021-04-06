@@ -293,6 +293,7 @@ export default {
     },
     setSelectedKota () {
       const val = this.selectedKota.value
+      this.activeParentRegionName = this.selectedKota.label
       if (val === '32') {
         this.getDataSebaranPolygon('kota', this.activeCaseCategory)
         this.activeRegionId = val
@@ -310,6 +311,7 @@ export default {
     setSelectedKecamatan () {
       const val = this.selectedKecamatan.value
       const kodeKec = val.toString()
+      this.activeParentRegionName = this.selectedKecamatan.label
       if (val === '') {
         this.getDataKecamatan(this.selectedKota.value)
         this.getDataSebaranPolygon('kecamatan', this.activeCaseCategory, this.selectedKota.value)

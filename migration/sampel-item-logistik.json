@@ -1,0 +1,216 @@
+{
+  "__collections__": {
+    "logistic-donation-needs": {
+      "apron_reusable": {
+        "unit": "unit",
+        "spec": "Material: 100% polyester dengan lapisan PVC, atau 100% PVC, atau 100% karet, atau bahan tahan air lainnya. Dapat dipergunakan kembali setelah dilakukan desinfeksi atau dekontaminasi. Apron lurus dengan kain penutup dada. Kain: tahan air, dengan jahitan tali pengikat leher dan punggung, Berat minimal: 300g/m2. Covering size: lebar 70-90 cm x tinggi 120-150 cm.",
+        "name": "Apron reusable",
+        "amount": 245,
+        "__collections__": {}
+      },
+      "apron_sekali_pakai": {
+        "amount": 53535,
+        "unit": "unit",
+        "spec": "Material non woven, serat sintetik (polypropilen, polyester, polyetilen, dupont tyvex). Berwarna terang/cerah agar jika terdapat kontaminan dapat terdeteksi/terlihat dengan muda. Tahan terhadap penetrasi cairan,darah dan virus. Tahan terhadap aerosol, airborne, partikel padat. Panjang gaun setengah betis untuk menutupi bagian atas sepatu boots. Terdapat lingkaran (cuff) yang elastis pada pergelangan tangan",
+        "name": "Apron sekali pakai",
+        "__collections__": {}
+      },
+      "atasan_scrub": {
+        "spec": "Bahan kain kokoh, halus, tidak panas",
+        "name": "Atasan Scrub",
+        "unit": "unit",
+        "amount": 3108,
+        "__collections__": {}
+      },
+      "celana_scrubs": {
+        "amount": 3108,
+        "name": "Celana Scrubs",
+        "unit": "unit",
+        "spec": "Bahan kain yang kokoh, halus, tidak panas",
+        "__collections__": {}
+      },
+      "gaun_pelindung_gown_protective": {
+        "name": "Gaun Pelindung (Gown, protective)",
+        "unit": "unit",
+        "spec": "Material non woven, serat sintetik (polypropilen, polyester, polyetilen, dupont tyvex) dengan pori-pori 0,2-0,54 mikron (microphorus). Berwarna terang/cerah agar jika terdapat kontaminan dapat terdeteksi/terlihat dengan muda. Tahan terhadap penetrasi cairan,darah dan virus. Tahan terhadap aerosol, airborne, partikel padat",
+        "amount": 65397,
+        "__collections__": {}
+      },
+      "hand_sanitizer_merk_cami": {
+        "spec": "-",
+        "name": "Hand Santizer merk Cami-Tizer",
+        "unit": "Liter",
+        "amount": 100,
+        "__collections__": {}
+      },
+      "kacamata_pelindung": {
+        "name": "Kacamata Pelindung",
+        "amount": 2922,
+        "spec": "Material plastik/Arcylic bening. Tahan terhadap air dan goresan. Frame goggle bersifat fleksibel untuk menyesuaikan dengan kontur wajah tanpa tekanan yang berlebihan. Ikatan goggle dapat disesuaikan dengan kuat sehingga tidak longgar saat melakukan aktivitas klinis. Tersedia celah angin/ udara yang berfungsi untuk mengurangi uap air.",
+        "unit": "unit",
+        "__collections__": {}
+      },
+      "masker_medis_mask_medical": {
+        "unit": "unit",
+        "spec": "Material non woven spunbond meltbown spunbond (sms) dan spunbond meltbown meltbown spunbond (smms). Lulus uji bacteria filtration efficiency in vitro, particle filtration efficiency, breathing resistance, splash resistance dan flammability. Bagian dalam dan luar masker harus dapat teridentifikasi dengan mudah dan jelas. Masker dirancang agar tidak rusak dengan mulut (bentuk mangkok atau duckbill). Dapat menahan dengan baik terhadap penetrasi cairan, darah dan droplet. Memiliki Efsiensi Penyaringan Bakteri (bacterial fltration efciency) 98%. Dengan masker ini pengguna dapat bernafas dengan baik saat memakainya (Differential Pressure/FFP < 5.0 mmH2O/cm2)",
+        "amount": 628712,
+        "name": "Masker Medis (Mask, medical)",
+        "__collections__": {}
+      },
+      "masker_respirator_partikulat": {
+        "name": "Masker Respirator Partikulat",
+        "amount": 66409,
+        "unit": "unit",
+        "spec": "\"Kelompok jenis masker ini memiliki kelebihan tidak hanya melindungi pemakai dari paparan cairan dengan ukuran droplet, tapi juga hingga cairan berukuran aerosol. Masker jenis ini memiliki face seal fit yang ketat sehingga mendukung pemakai terhindar dari paparan aerosol asalkan seal fit dipastikan terpasang dengan benar.",
+        "__collections__": {}
+      },
+      "paket_sembako": {
+        "spec": "Isi Utama : 5 Kg beras, 2 Sarden kecil 155 gram, Tepung Terigu 1 Kg, Minyak Goreng 1 Liter.  Isi Tambahan : Abon 100 gram, Kornet 200 gram, Gula Pasir 1 Kg, Teh Celup 1 Box Isi 25 pcs, Kopi 1 Pack isi 10 Sachets, Mie Instant 5 Bungkus, Kecap Botol Ukuran 250 ml.  Kebutuhan paket sembako per 3 bulan adalah 8100 paket, kebutuhan paket sembako per bulan adalah 2700 paket.",
+        "unit": "Paket per 3 Bulan",
+        "amount": 8100,
+        "name": "Paket Sembako",
+        "__collections__": {}
+      },
+      "pelindung_wajah": {
+        "amount": 51745,
+        "name": "Pelindung Wajah",
+        "unit": "unit",
+        "spec": "Material plastik bening yang dapat memberikan visibilitas yang baik. Face shield tahan terhadap uap air (disarankan). Ikatan face shield dapat disesuaikan untuk melekat dengan kuat di sekeliling kepala dan pas pada dahi",
+        "__collections__": {}
+      },
+      "sarung_tangan_bedah": {
+        "name": "Sarung Tangan Bedah",
+        "amount": 51745,
+        "spec": "Material nitrile/latex/isoprene. Sekali pakai (Single Use), Steril, Bebas dari tepung (powder free). Memiliki cuff yang panjang, melewati pergelangan tangan, ukuran 5-9. Desain bagian pergelangan tangan harus dapat menutup rapat tanpa kerutan. Sarung tangan tidak menggulung atau mengkerut selama penggunaan. Sarung tangan tidak mengiritasi kulit.",
+        "unit": "unit",
+        "__collections__": {}
+      },
+      "sarung_tangan_heavy_duty": {
+        "unit": "unit",
+        "amount": 245,
+        "spec": "Terbuat dari karet lateks. Ketahanan kimiawi yang baik terhadap asam, alkali, dan deterjen. Fleksibel (tahan sobek), Melindungi dari droplets",
+        "name": "Sarung Tangan Heavy Duty",
+        "__collections__": {}
+      },
+      "sarung_tangan_pemeriksaan": {
+        "amount": 858895,
+        "unit": "unit",
+        "spec": "\"Material nitrile/latex/isoprene. Sekali pakai (Single Use), Bebas dari tepung (powder free). Memiliki cuff yang panjang melewati pergelangan tangan (minimum 230 mm,",
+        "name": "Sarung Tangan Pemeriksaan",
+        "__collections__": {}
+      },
+      "sembako_abon": {
+        "spec": "-",
+        "name": "Sembako Abon",
+        "unit": "Kilogram",
+        "amount": 270,
+        "__collections__": {}
+      },
+      "sembako_beras": {
+        "name": "Sembako Beras",
+        "unit": "Ton",
+        "spec": "-",
+        "amount": 13.5,
+        "__collections__": {}
+      },
+      "sembako_gulapasir": {
+        "unit": "Kilogram",
+        "amount": 2700,
+        "name": "Sembako Gula Pasir",
+        "spec": "-",
+        "__collections__": {}
+      },
+      "sembako_kecap": {
+        "unit": "Botol",
+        "amount": 2700,
+        "name": "Sembako Kecap",
+        "spec": "Per Botol Ukuran 250 ml",
+        "__collections__": {}
+      },
+      "sembako_kopi": {
+        "unit": "Kantong",
+        "amount": 2700,
+        "spec": "Per Kantong Isi 10 Sachets",
+        "name": "Sembako Kopi",
+        "__collections__": {}
+      },
+      "sembako_kornet": {
+        "unit": "Kilogram",
+        "spec": "-",
+        "amount": 540,
+        "name": "Sembako Kornet",
+        "__collections__": {}
+      },
+      "sembako_mie": {
+        "spec": "-",
+        "amount": 13500,
+        "name": "Sembako Mie Instant",
+        "unit": "Bungkus",
+        "__collections__": {}
+      },
+      "sembako_minyak": {
+        "name": "Sembako Minyak",
+        "spec": "-",
+        "unit": "Liter",
+        "amount": 2700,
+        "__collections__": {}
+      },
+      "sembako_paketsiapsaji": {
+        "name": "Nasi Lauk Sayur dan Minum",
+        "spec": "Jam 1 paket nasi bungkus harus sudah sampai di Gedung Pakuan. Jam 3 sore Jabar Bergerak akan membagikan makanan. Donasi paket siap saji dibuka setiap hari Jumat dan Minggu",
+        "amount": 200,
+        "unit": "Nasi Box per Hari",
+        "__collections__": {}
+      },
+      "sembako_sarden": {
+        "unit": "kaleng",
+        "name": "Sembako Sarden",
+        "spec": "-",
+        "amount": 5400,
+        "__collections__": {}
+      },
+      "sembako_tehcelup": {
+        "amount": 2700,
+        "unit": "Box",
+        "name": "Sembako Teh Celup",
+        "spec": "Per Box Isi 25 pcs",
+        "__collections__": {}
+      },
+      "sembako_terigu": {
+        "name": "Sembako Tepung Terigu",
+        "spec": "-",
+        "unit": "Kilogram",
+        "amount": 2700,
+        "__collections__": {}
+      },
+      "sepatu_bot_karet": {
+        "name": "Sepatu Bot Karet",
+        "unit": "unit",
+        "spec": "Material: Latex dan PVC. Bersifat non-slip, dengan sol PVC yang tertutup sempurna. Memiliki tinggi selutut supaya lebih tinggi daripada bagian bawah gaun. Berwarna terang agar kontaminasi dapat terdeteksi dengan mudah.",
+        "amount": 245,
+        "__collections__": {}
+      },
+      "suplemen_vitc": {
+        "amount": 500,
+        "spec": "-",
+        "name": "Suplemen Vit C Merk Merzavit C",
+        "unit": "tube",
+        "__collections__": {}
+      },
+      "suplemen_vitc_250gram": {
+        "spec": "-",
+        "name": "Suplemen VIT C 250gram",
+        "unit": "Tablet",
+        "amount": 500000,
+        "__collections__": {}
+      },
+      "ventilator_mekanik": {
+        "name": "Ventilator Mekanik",
+        "spec": "-",
+        "unit": "Unit",
+        "amount": 3,
+        "__collections__": {}
+      }
+    }
+  }
+}

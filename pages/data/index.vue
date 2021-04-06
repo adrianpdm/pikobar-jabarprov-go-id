@@ -111,11 +111,11 @@
 
 <style>
 .link-hover:hover {
-  box-shadow: 0 0 20px #6DD174;
-  color: #6DD174;
+  box-shadow: 0 0 20px #6dd174;
+  color: #6dd174;
 }
 .link-hover-warning:hover {
-  box-shadow: 0 0 10px #FED1B1;
+  box-shadow: 0 0 10px #fed1b1;
   text-decoration: underline;
   cursor: pointer;
 }
@@ -184,6 +184,10 @@ export default {
         this.$store.dispatch('data-nasional-harian/getItems'),
         this.$store.dispatch('data-kasus-harian-v2/getItems'),
         this.$store.dispatch('data-kasus-harian-kota-v2/getItems'),
+        this.$store.dispatch('data-kasus-mingguan-kota-v2/getItems'),
+        this.$store.dispatch('data-kasus-mingguan-provinsi-v2/getItems'),
+        this.$store.dispatch('data-kasus-dwimingguan-kota-v2/getItems'),
+        this.$store.dispatch('data-kasus-dwimingguan-provinsi-v2/getItems'),
         this.$store.dispatch('statistics/getCases'),
       ]).then(() => {
       })
@@ -234,7 +238,7 @@ export default {
 @import "leaflet.markercluster/dist/MarkerCluster.css";
 @import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 .bg-green-100 {
-  background-color: #5AAA4E;
+  background-color: #5aaa4e;
 }
 .text-white {
   color: white;
@@ -244,73 +248,73 @@ export default {
 }
 
 .container-map {
-    width:100%;
-    height:100%;
-    position: relative;
-    background-color: #ffffff;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-color: #ffffff;
 }
 
 .filter-layer {
-    position: absolute;
-    top: 0px;
-    right: 10px;
-    padding-right: 1em;
-    padding-top: 1em;
+  position: absolute;
+  top: 0px;
+  right: 10px;
+  padding-right: 1em;
+  padding-top: 1em;
 }
 
 .filter-layer .btn {
-    font-size: 0.8em;
-    padding: 2px 6px;
-    box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+  font-size: 0.8em;
+  padding: 2px 6px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
 }
 
 .filter-data {
-    background: #fff;
-    margin-top: 0.5em;
-    padding: 0.6em;
-    border-radius: 0.6em;
-    box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+  background: #fff;
+  margin-top: 0.5em;
+  padding: 0.6em;
+  border-radius: 0.6em;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
 }
 
 .filter-layer li {
-    list-style: none;
-    opacity: 0.4;
-    padding-bottom: 0.2em;
+  list-style: none;
+  opacity: 0.4;
+  padding-bottom: 0.2em;
 }
 
 .filter-layer li:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .filter-active {
-    opacity: 1 !important;
+  opacity: 1 !important;
 }
 
 .filter-data {
-    background: #fff;
-    color: black;
-    margin-top: 0.5em;
-    padding: 0.6em;
-    border-radius: 0.6em;
-    box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+  background: #fff;
+  color: black;
+  margin-top: 0.5em;
+  padding: 0.6em;
+  border-radius: 0.6em;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
 }
 
 .legend-color {
-    width: 1em;
-    height: 1em;
-    float: left;
-    border-radius: 10px;
-    margin-top: 4px;
+  width: 1em;
+  height: 1em;
+  float: left;
+  border-radius: 10px;
+  margin-top: 4px;
 }
 
 .cluster {
-    border-radius: 50%;
-    text-align: center;
-    color: white;
-    font-weight: 700;
-    font-family: monospace;
-    height: 10px;
-    width: 10px;
+  border-radius: 50%;
+  text-align: center;
+  color: white;
+  font-weight: 700;
+  font-family: monospace;
+  height: 10px;
+  width: 10px;
 }
 
 .cluster-odp-proses {
@@ -328,7 +332,7 @@ export default {
 .cluster-odp-meninggal {
   /* box-shadow: 0 0 5px 0 rgb(45, 156, 219, 0.9); */
   border: 2px solid rgb(45, 156, 219, 0.9);
-  background: rgb(165,18,18, 0.9);
+  background: rgb(165, 18, 18, 0.9);
 }
 
 .cluster-pdp-proses {
@@ -346,7 +350,7 @@ export default {
 .cluster-pdp-meninggal {
   /* box-shadow: 0 0 5px 0 rgb(242, 201, 76, 0.9); */
   border: 2px solid rgb(242, 201, 76, 0.9);
-  background: rgb(165,18,18, 0.9);
+  background: rgb(165, 18, 18, 0.9);
 }
 
 .cluster-positif-proses {
@@ -364,7 +368,7 @@ export default {
 .cluster-positif-meninggal {
   /* box-shadow: 0 0 5px 0 rgb(235, 87, 87, 0.9); */
   border: 2px solid rgb(235, 87, 87, 0.9);
-  background: rgb(165,18,18, 0.9);
+  background: rgb(165, 18, 18, 0.9);
 }
 
 .digits-0 {
@@ -420,9 +424,8 @@ export default {
   /* padding-top: 1em; */
 }
 
-
 .legend-data {
-  background: rgb(255,255,2555);
+  background: rgb(255, 255, 2555);
   margin-top: 0.5em;
   padding: 0.6em;
   /* border-radius: 0.6em; */
@@ -449,7 +452,7 @@ export default {
 }
 
 .leaflet-div-icon {
-  border: none!important;
+  border: none !important;
   border-radius: 20px;
 }
 
@@ -465,7 +468,7 @@ export default {
 }
 
 .text-disclaimer {
-  top:15%;
+  top: 15%;
   width: 100%;
   position: absolute;
   text-align: center;
@@ -502,7 +505,7 @@ export default {
 }
 
 .leaflet-control-geosearch.bar .results.active:after {
-  opacity: .2;
+  opacity: 0.2;
 }
 
 .leaflet-right .leaflet-control-geosearch form {
@@ -528,11 +531,9 @@ export default {
   background: #f5f5f5;
 }
 
-
 .title-map {
   position: absolute;
   top: 0;
   color: #ffffff;
 }
-
 </style>

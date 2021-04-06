@@ -61,13 +61,39 @@
             </div>
           </div>
         </div>
-        <hr>
-        <GChart
-          class="p-5"
-          type="ComboChart"
-          :data="barChartHarianCloseContactData"
-          :options="barChartHarianCloseContactOptions"
-        />
+        <div
+          class="w-full p-5"
+          :class="isLoading?'':'hidden'"
+        >
+          <ContentLoader
+            class="w-full hidden lg:block"
+            :speed="3"
+            :width="400"
+            :height="340"
+            primary-color="#eee"
+            secondary-color="#fff"
+          >
+            <rect
+              :key="1"
+              x="0"
+              :y="4"
+              width="100%"
+              height="280"
+              rx="3"
+              ry="3"
+            />
+          </ContentLoader>
+        </div>
+        <div :class="!isLoading?'':'hidden'">
+          <hr>
+          <GChart
+            class="p-5"
+            type="ComboChart"
+            :data="barChartHarianCloseContactData"
+            :options="barChartHarianCloseContactOptions"
+            :class="!isLoading?'':'hidden'"
+          />
+        </div>
       </div>
       <div class="bg-white rounded-lg shadow-md">
         <div class="flex-wrap md:flex">
@@ -101,13 +127,38 @@
             </div>
           </div>
         </div>
-        <hr>
-        <GChart
-          class="p-5"
-          type="ComboChart"
-          :data="barChartHarianSuspectData"
-          :options="barChartHarianSuspectOptions"
-        />
+        <div
+          class="w-full p-5"
+          :class="isLoading?'':'hidden'"
+        >
+          <ContentLoader
+            class="w-full hidden lg:block"
+            :speed="3"
+            :width="400"
+            :height="350"
+            primary-color="#eee"
+            secondary-color="#fff"
+          >
+            <rect
+              :key="1"
+              x="0"
+              :y="4"
+              width="100%"
+              height="320"
+              rx="3"
+              ry="3"
+            />
+          </ContentLoader>
+        </div>
+        <div :class="!isLoading?'':'hidden'">
+          <hr>
+          <GChart
+            class="p-5"
+            type="ComboChart"
+            :data="barChartHarianSuspectData"
+            :options="barChartHarianSuspectOptions"
+          />
+        </div>
       </div>
       <div class="bg-white rounded-lg shadow-md">
         <div class="flex-wrap md:flex">
@@ -141,13 +192,38 @@
             </div>
           </div>
         </div>
-        <hr>
-        <GChart
-          class="p-5"
-          type="ComboChart"
-          :data="barChartHarianProbableData"
-          :options="barChartHarianProbableOptions"
-        />
+        <div
+          class="w-full p-5"
+          :class="isLoading?'':'hidden'"
+        >
+          <ContentLoader
+            class="w-full hidden lg:block"
+            :speed="3"
+            :width="400"
+            :height="350"
+            primary-color="#eee"
+            secondary-color="#fff"
+          >
+            <rect
+              :key="1"
+              x="0"
+              :y="4"
+              width="100%"
+              height="300"
+              rx="3"
+              ry="3"
+            />
+          </ContentLoader>
+        </div>
+        <div :class="!isLoading?'':'hidden'">
+          <hr>
+          <GChart
+            class="p-5"
+            type="ComboChart"
+            :data="barChartHarianProbableData"
+            :options="barChartHarianProbableOptions"
+          />
+        </div>
       </div>
     </section>
 
@@ -191,6 +267,7 @@
         </div>
         <hr>
         <GChart
+          class="p-5"
           type="LineChart"
           :data="barChartAkumulatifCloseContactData"
           :options="barChartAkumulatifCloseContactOptions"
@@ -230,6 +307,7 @@
         </div>
         <hr>
         <GChart
+          class="p-5"
           type="LineChart"
           :data="barChartAkumulatifSuspectData"
           :options="barChartAkumulatifSuspectOptions"
@@ -269,6 +347,7 @@
         </div>
         <hr>
         <GChart
+          class="p-5"
           type="LineChart"
           :data="barChartAkumulatifProbableData"
           :options="barChartAkumulatifProbableOptions"
@@ -279,6 +358,7 @@
 </template>
 
 <script>
+import { ContentLoader } from 'vue-content-loader'
 import { GChart } from 'vue-google-charts'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faChartBar, faChartLine } from '@fortawesome/free-solid-svg-icons'
@@ -286,6 +366,7 @@ import { faChartBar, faChartLine } from '@fortawesome/free-solid-svg-icons'
 export default {
   name: 'BarStatHarianAkumulatifV2IstilahBaru',
   components: {
+    ContentLoader,
     GChart,
     FontAwesomeIcon
   },
@@ -554,7 +635,7 @@ export default {
               label: 'Semua Waktu',
               active: true,
               dateRange: {
-                start: new Date('2020-08-01'),
+                start: new Date('2020-08-13'),
                 end: new Date()
               }
             }
@@ -598,7 +679,7 @@ export default {
               label: 'Semua Waktu',
               active: true,
               dateRange: {
-                start: new Date('2020-08-01'),
+                start: new Date('2020-08-13'),
                 end: new Date()
               }
             }
@@ -642,7 +723,7 @@ export default {
               label: 'Semua Waktu',
               active: true,
               dateRange: {
-                start: new Date('2020-08-01'),
+                start: new Date('2020-08-13'),
                 end: new Date()
               }
             }
@@ -701,11 +782,11 @@ export default {
     }
   },
   mounted () {
-    this.selectedDateCloseContact.start = new Date('2020-08-01')
+    this.selectedDateCloseContact.start = new Date('2020-08-13')
     this.selectedDateCloseContact.end = new Date()
-    this.selectedDateSuspect.start = new Date('2020-08-01')
+    this.selectedDateSuspect.start = new Date('2020-08-13')
     this.selectedDateSuspect.end = new Date()
-    this.selectedDateProbable.start = new Date('2020-08-01')
+    this.selectedDateProbable.start = new Date('2020-08-13')
     this.selectedDateProbable.end = new Date()
     this.checkIsMobile()
   },

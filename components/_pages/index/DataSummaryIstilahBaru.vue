@@ -4,33 +4,43 @@
       <section class="flex flex-row flex-wrap">
         <!-- Terkonfirmasi -->
         <CounterCardLoader
-          :is-pending="isLoading"
+          :is-pending="isLoadingJabar || isLoadingNasional"
           :is-main="true"
           class="mb-8 border border-solid digital-signage"
-          style="background: linear-gradient(90deg, #2C347C, #424CA6);"
+          style="background: #2C347C;"
           label="Total Terkonfirmasi"
         >
           <div class="flex flex-row text-white text-center mt-3 font-bold">
             <div class="w-1/2">
               <b class="text-md">Jawa Barat</b>
               <div class="text-3xl">
-                {{ formatNumber(data.jawabarat.positif_total) }}
+                {{ formatNumber(dataIstilahBaru.confirmation_total) }}
               </div>
-              <div><span class="rounded-full bg-white px-custom-1 mr-1" style=""><FontAwesomeIcon class="text-xs cursor-pointer" style="color:#2C347C" :icon="iconPlusMinus(data.jawabarat.positif_total_pertumbuhan)" /></span>{{ data.jawabarat.positif_total_pertumbuhan }}</div>
+              <div>
+                <span class="rounded-full bg-white px-custom-1 mr-1" style="">
+                  <FontAwesomeIcon class="text-xs cursor-pointer" style="color:#2C347C" :icon="iconPlusMinus(dataIstilahBaru.confirmation_total_pertumbuhan)" />
+                </span>
+                {{ dataIstilahBaru.confirmation_total_pertumbuhan }}
+              </div>
             </div>
             <div class="w-1/2">
               <b class="text-md">Indonesia</b>
               <div class="text-3xl">
-                {{ formatNumber(data.nasional.positif_total) }}
+                {{ formatNumber(dataNational.update.total.jumlah_positif) }}
               </div>
-              <div><span class="rounded-full bg-white px-custom-1 mr-1" style=""><FontAwesomeIcon class="text-xs cursor-pointer" style="color:#2C347C" :icon="iconPlusMinus(data.nasional.positif_total_pertumbuhan)" /></span>{{ data.nasional.positif_total_pertumbuhan }}</div>
+              <div>
+                <span class="rounded-full bg-white px-custom-1 mr-1" style="">
+                  <FontAwesomeIcon class="text-xs cursor-pointer" style="color:#2C347C" :icon="iconPlusMinus(dataNational.update.penambahan.jumlah_positif)" />
+                </span>
+                {{ dataNational.update.penambahan.jumlah_positif }}
+              </div>
             </div>
           </div>
         </CounterCardLoader>
 
         <!-- Isolasi -->
         <CounterCardLoader
-          :is-pending="isLoading"
+          :is-pending="isLoadingJabar || isLoadingNasional"
           :is-main="false"
           class="mb-8 border border-solid digital-signage bg-white text-title"
           label="Isolasi/Dalam Perawatan"
@@ -39,25 +49,25 @@
             <div class="w-1/2">
               <b class="text-md text-black">Jawa Barat</b>
               <div class="text-3xl">
-                {{ formatNumber(data.jawabarat.positif_aktif) }}
+                {{ formatNumber(dataIstilahBaru.confirmation_diisolasi) }}
               </div>
               <div>
                 <span class="rounded-full bg-confirmation-diisolasi px-custom-1 mr-1" style="">
-                  <FontAwesomeIcon class="text-xs cursor-pointer text-white" :icon="iconPlusMinus(data.jawabarat.positif_aktif_pertumbuhan)" />
+                  <FontAwesomeIcon class="text-xs cursor-pointer text-white" :icon="iconPlusMinus(dataIstilahBaru.confirmation_diisolasi_pertumbuhan)" />
                 </span>
-                {{ data.jawabarat.positif_aktif_pertumbuhan }}
+                {{ dataIstilahBaru.confirmation_diisolasi_pertumbuhan }}
               </div>
             </div>
             <div class="w-1/2">
               <b class="text-md  text-black">Indonesia</b>
               <div class="text-3xl">
-                {{ formatNumber(data.nasional.positif_aktif) }}
+                {{ formatNumber(dataNational.update.total.jumlah_dirawat) }}
               </div>
               <div>
                 <span class="rounded-full bg-confirmation-diisolasi px-custom-1 mr-1" style="">
-                  <FontAwesomeIcon class="text-xs cursor-pointer text-white" :icon="iconPlusMinus(data.nasional.positif_aktif_pertumbuhan)" />
+                  <FontAwesomeIcon class="text-xs cursor-pointer text-white" :icon="iconPlusMinus(dataNational.update.penambahan.jumlah_dirawat)" />
                 </span>
-                {{ data.nasional.positif_aktif_pertumbuhan }}
+                {{ dataNational.update.penambahan.jumlah_dirawat }}
               </div>
             </div>
           </div>
@@ -65,7 +75,7 @@
 
         <!-- Selesai -->
         <CounterCardLoader
-          :is-pending="isLoading"
+          :is-pending="isLoadingJabar || isLoadingNasional"
           :is-main="false"
           class="mb-8 border border-solid digital-signage bg-white text-title"
           label="Selesai Isolasi/Sembuh"
@@ -74,25 +84,25 @@
             <div class="w-1/2">
               <b class="text-md text-black">Jawa Barat</b>
               <div class="text-3xl">
-                {{ formatNumber(data.jawabarat.positif_sembuh) }}
+                {{ formatNumber(dataIstilahBaru.confirmation_selesai) }}
               </div>
               <div>
                 <span class="rounded-full bg-confirmation-selesai px-custom-1 mr-1" style="">
-                  <FontAwesomeIcon class="text-xs cursor-pointer text-white" :icon="iconPlusMinus(data.jawabarat.positif_sembuh_pertumbuhan)" />
+                  <FontAwesomeIcon class="text-xs cursor-pointer text-white" :icon="iconPlusMinus(dataIstilahBaru.confirmation_selesai_pertumbuhan)" />
                 </span>
-                {{ data.jawabarat.positif_sembuh_pertumbuhan }}
+                {{ dataIstilahBaru.confirmation_selesai_pertumbuhan }}
               </div>
             </div>
             <div class="w-1/2">
               <b class="text-md  text-black">Indonesia</b>
               <div class="text-3xl">
-                {{ formatNumber(data.nasional.positif_sembuh) }}
+                {{ formatNumber(dataNational.update.total.jumlah_sembuh) }}
               </div>
               <div>
                 <span class="rounded-full bg-confirmation-selesai px-custom-1 mr-1" style="">
-                  <FontAwesomeIcon class="text-xs cursor-pointer text-white" :icon="iconPlusMinus(data.nasional.positif_sembuh_pertumbuhan)" />
+                  <FontAwesomeIcon class="text-xs cursor-pointer text-white" :icon="iconPlusMinus(dataNational.update.penambahan.jumlah_sembuh)" />
                 </span>
-                {{ data.nasional.positif_sembuh_pertumbuhan }}
+                {{ dataNational.update.penambahan.jumlah_sembuh }}
               </div>
             </div>
           </div>
@@ -100,7 +110,7 @@
 
         <!-- Meninggal -->
         <CounterCardLoader
-          :is-pending="isLoading"
+          :is-pending="isLoadingJabar || isLoadingNasional"
           :is-main="false"
           class="mb-8 border border-solid digital-signage bg-white text-title"
           label="Meninggal"
@@ -109,25 +119,25 @@
             <div class="w-1/2">
               <b class="text-md text-black">Jawa Barat</b>
               <div class="text-3xl">
-                {{ formatNumber(data.jawabarat.positif_meninggal) }}
+                {{ formatNumber(dataIstilahBaru.confirmation_meninggal) }}
               </div>
               <div>
                 <span class="rounded-full bg-confirmation-meninggal px-custom-1 mr-1" style="">
-                  <FontAwesomeIcon class="text-xs cursor-pointer text-white" :icon="iconPlusMinus(data.jawabarat.positif_meninggal_pertumbuhan)" />
+                  <FontAwesomeIcon class="text-xs cursor-pointer text-white" :icon="iconPlusMinus(dataIstilahBaru.confirmation_meninggal_pertumbuhan)" />
                 </span>
-                {{ data.jawabarat.positif_meninggal_pertumbuhan }}
+                {{ dataIstilahBaru.confirmation_meninggal_pertumbuhan }}
               </div>
             </div>
             <div class="w-1/2">
               <b class="text-md  text-black">Indonesia</b>
               <div class="text-3xl">
-                {{ formatNumber(data.nasional.positif_meninggal) }}
+                {{ formatNumber(dataNational.update.total.jumlah_meninggal) }}
               </div>
               <div>
                 <span class="rounded-full bg-confirmation-meninggal px-custom-1 mr-1" style="">
-                  <FontAwesomeIcon class="text-xs cursor-pointer text-white" :icon="iconPlusMinus(data.nasional.positif_meninggal_pertumbuhan)" />
+                  <FontAwesomeIcon class="text-xs cursor-pointer text-white" :icon="iconPlusMinus(dataNational.update.penambahan.jumlah_meninggal)" />
                 </span>
-                {{ data.nasional.positif_meninggal_pertumbuhan }}
+                {{ dataNational.update.penambahan.jumlah_meninggal }}
               </div>
             </div>
           </div>
@@ -137,7 +147,7 @@
       <section class="flex flex-row flex-wrap">
         <!-- Kontak Erat -->
         <CounterCardLoader
-          :is-pending="isLoading2"
+          :is-pending="isLoadingJabar"
           :is-main="false"
           :is-tooltip-closecontact="true"
           :is-tooltip-suspect="false"
@@ -181,7 +191,7 @@
 
         <!-- Suspect -->
         <CounterCardLoader
-          :is-pending="isLoading2"
+          :is-pending="isLoadingJabar"
           :is-main="false"
           :is-tooltip-closecontact="false"
           :is-tooltip-suspect="true"
@@ -234,7 +244,7 @@
 
         <!-- Probable -->
         <CounterCardLoader
-          :is-pending="isLoading2"
+          :is-pending="isLoadingJabar"
           :is-main="false"
           :is-tooltip-closecontact="false"
           :is-tooltip-suspect="false"
@@ -297,33 +307,22 @@ export default {
   },
   data () {
     return {
-      data: {
-        nasional: {
-          positif_total: 0,
-          positif_total_pertumbuhan: 0,
-          positif_aktif: 0,
-          positif_aktif_pertumbuhan: 0,
-          positif_sembuh: 0,
-          positif_sembuh_pertumbuhan: 0,
-          positif_meninggal: 0,
-          positif_meninggal_pertumbuhan: 0,
-          last_update: '2020-08-02'
-        },
-        jawabarat: {
-          kode_prov: 32,
-          nama_prov: 'Provinsi Jawa Barat',
-          positif_aktif: 0,
-          positif_aktif_pertumbuhan: 0,
-          positif_meninggal: 0,
-          positif_meninggal_pertumbuhan: 0,
-          positif_sembuh: 0,
-          positif_sembuh_pertumbuhan: 0,
-          positif_total: 0,
-          positif_total_pertumbuhan: 0,
-          last_update: '2020-08-02'
-        },
-        meta: {
-          last_update: '2020-08-03T07:00:08.000000Z'
+      dataNational: {
+        update: {
+          penambahan: {
+            jumlah_positif: 0,
+            jumlah_meninggal: 0,
+            jumlah_sembuh: 0,
+            jumlah_dirawat: 0,
+            tanggal: '',
+            created: ''
+          },
+          total: {
+            jumlah_positif: 0,
+            jumlah_meninggal: 0,
+            jumlah_sembuh: 0,
+            jumlah_dirawat: 0
+          }
         }
       },
       dataIstilahBaru: {
@@ -367,29 +366,29 @@ export default {
     }
   },
   computed: {
-    covidCases () {
-      return this.$store.getters['covid-cases/itemsMap']
+    covidCasesNational () {
+      return this.$store.getters['covid-cases-national/itemsMap']
     },
-    isLoading () {
-      return this.$store.getters['covid-cases/isLoading']
+    isLoadingNasional () {
+      return this.$store.getters['covid-cases-national/isLoading']
     },
     dataKasusTotalV2 () {
       return this.$store.getters['data-kasus-total-v2/itemsMap']
     },
-    isLoading2 () {
+    isLoadingJabar () {
       return this.$store.getters['data-kasus-total-v2/isLoading']
     }
   },
   watch: {
-    covidCases (val) {
-      this.data = val
+    covidCasesNational (val) {
+      this.dataNational = val
     },
     dataKasusTotalV2 (val) {
       this.dataIstilahBaru = val[0]
     }
   },
   mounted () {
-    this.getCovidCases()
+    this.getCovidCasesNational()
     this.getDataKasusTotalV2()
   },
   methods: {
@@ -405,8 +404,8 @@ export default {
     },
 
     // GET
-    getCovidCases () {
-      this.$store.dispatch('covid-cases/getItems')
+    getCovidCasesNational () {
+      this.$store.dispatch('covid-cases-national/getItems')
     },
     getDataKasusTotalV2 () {
       this.$store.dispatch('data-kasus-total-v2/getItems')

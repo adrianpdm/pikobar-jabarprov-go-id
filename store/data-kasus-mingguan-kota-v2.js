@@ -14,9 +14,15 @@ export const mutations = {
 }
 
 export const actions = {
-  async getItems ({ commit }, options) {
-    const { data } = await this.$dashboardPikobarApi.get('v2/sebaran/faskes')
+  async getItems ({ commit }, options = {
+    params: {
+      wilayah: 'kota'
+    }
+  }) {
+    commit('setIsLoading', true)
+    const { data } = await this.$dashboardPikobarApi.get('v2/kasus/mingguan', options)
     commit('setItems', data.data)
+    commit('setIsLoading', false)
   }
 }
 

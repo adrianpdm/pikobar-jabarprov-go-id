@@ -322,8 +322,8 @@ export default {
     },
     onRecaptchaVerify (response) {
       this.uploadFileToFirebaseStorage()
-        .then(() => {
-          this.postPayloadToFirestore()
+        .then(async () => {
+          await this.postPayloadToFirestore()
           Swal.fire({
             title: 'Data berhasil disimpan',
             icon: 'success'
@@ -355,14 +355,16 @@ export default {
         })
       })
     },
-    postPayloadToFirestore () {
-      // console.log('uploading to firestore')
-      return db.collection('donation-cash').add(this.payload)
-        .then((docRef) => {
-          console.log(docRef.id)
-        }).catch((error) => {
-          console.error(error)
+    async postPayloadToFirestore () {
+      await db.runTransaction(async (t) => {
+        const newDoc = db.collection('donation-cash').doc()
+        const counter = db.doc('counters/donation-cash')
+        const count = await t.get(counter).then(doc => doc.get('count'))
+        await t.set(newDoc, this.payload)
+        await t.update(counter, {
+          count: count + 1
         })
+      })
     }
   }
 }

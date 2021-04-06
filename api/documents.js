@@ -4,15 +4,22 @@ import { slufigyDocumentRoute } from '../lib/slugify'
 export const ORDER_INDEX = 'published_at'
 export const ORDER_TYPE = 'desc'
 
-export function get (options = { perPage: 3 }) {
-  return db.collection('documents')
+export async function get (options = { lastSnapshot: null }) {
+  let query = db.collection('documents')
     .where('published', '==', true)
     .orderBy(ORDER_INDEX, 'desc')
-    .limit(options.perPage)
+    .limit(8)
+  if (options.lastSnapshot) {
+    query = query.startAfter(options.lastSnapshot)
+  }
+  const [data, lastSnapshot] = await query
     .get()
-    .then((docs) => {
-      if (!docs.empty) {
-        return docs.docs.map((doc) => {
+    .then((snapshots) => {
+      let data = []
+      let lastSnapshot = null
+      if (!snapshots.empty) {
+        lastSnapshot = snapshots.docs[snapshots.docs.length - 1].data().published_at
+        data = snapshots.docs.map((doc) => {
           const data = doc.data()
           const route = slufigyDocumentRoute(doc.id, data.title)
           return {
@@ -24,8 +31,13 @@ export function get (options = { perPage: 3 }) {
           }
         })
       }
-      return []
+      return [data, lastSnapshot]
     })
+
+  return {
+    data,
+    lastSnapshot
+  }
 }
 
 export function getById (id) {

@@ -30,6 +30,32 @@ jobs:
         else
           echo "LAST_DEPLOY=${{ steps.lastDeployment.outputs.response.published_deploy.published_at }}" >> $GITHUB_ENV
         fi
-    - name: Check last deployment timestamp value
+    - name: Check firebase credentials
+      env:
+        FIREBASE_SDK_CONFIG: ${{ secrets.FIREBASE_SDK_CONFIG }}
+        FIREBASE_ADMIN_CONFIG: ${{ secrets.FIREBASE_ADMIN_CONFIG }}
       run: |
-        echo ${{ env.LAST_DEPLOY }}
+        if [ -z "$FIREBASE_SDK_CONFIG"]
+        then
+          echo "firebase sdk config is nil"
+        else
+          echo "firebase sdk config is set"
+        fi
+        if [ -z "$FIREBASE_ADMIN_CONFIG"]
+        then
+          echo "firebase admin config is nil"
+        else
+          echo "firebase admin config is set"
+        fi
+    - name: Cache node modules
+      if: ${{ false }}
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-node-modules
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+    - name: Install Dependencies
+      if: ${{ false }}
+      run: npm install
+    

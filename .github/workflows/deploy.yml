@@ -98,7 +98,6 @@ jobs:
         fi
   
     - name: Install dependencies
-      if: ${{ steps.node-modules-cache.outputs.cache-hit != 'true' }}
       run: |
         echo "Installing NPM packages"
         npm install

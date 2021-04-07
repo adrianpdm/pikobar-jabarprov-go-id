@@ -4,7 +4,7 @@ import {
   slugifyInfographicRoute
 } from '../lib/slugify'
 
-async function createQuery(collectionName) {
+async function createQuery(collectionName, timestampKey = 'published_at') {
   const shouldFetchAll = !!process.env.FIREBASE_FETCH_ALL;
   const lastDeployTimestamp = process.env.LAST_DEPLOY;
 
@@ -20,12 +20,12 @@ async function createQuery(collectionName) {
     return collection.get();
   }
   return collection
-    .where('published_at', '>=', lastDeployTimestamp)
+    .where(timestampKey, '>=', lastDeployTimestamp)
     .get();
 }
 
 export default async function () {
-  const infographics = await createQuery('infographics').then((docs) => {
+  const infographics = await createQuery('infographics', 'published_date').then((docs) => {
     if (!docs.empty) {
       return docs.docs.map((doc) => {
         const data = doc.data()

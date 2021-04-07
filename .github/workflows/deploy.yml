@@ -54,43 +54,47 @@ jobs:
           echo "firebase admin config is set"
         fi
 
-    - name: Cache node modules
-      id: node-modules-cache
+    - name: Cache npm dependencies
+      id: cache-npm
       uses: actions/cache@v2
-      env:
-        cache-name: cache-node-modules
       with:
         path: ~/.npm
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+        key: ${{ runner.os }}-cache-npm-${{ hashFiles('**/package-lock.json') }}
 
-    - name: Cache article dynamic route component
-      id: articles-slug-cache
+    - name: Cache dynamic route components
+      id: cache-slugs
       uses: actions/cache@v2
       with:
-        path: pages/articles/_slug.vue
-        key: ${{ runner.os }}-cache-pages-articles-slug-${{ hashFiles('pages/articles/_slug.vue') }}
+        path: |
+          pages/articles/_slug.vue
+          pages/documents/_slug.vue
+          pages/infographics/_slug.vue
+        key: ${{ runner.os }}-cache-dynamic-route-slug-${{ hashFiles('pages/articles/_slug.vue') }}
 
-    - name: Cache generated articles HTML folder
-      id: articles-dist-cache
+    - name: Cache dynamic route build files
+      id: cache-dist-dynamic-routes
       uses: actions/cache@v2
       with:
-        path: dist/articles
-        key: ${{ runner.os }}-cache-dist-articles }}
+        path: |
+          dist/articles
+          dist/infographics
+          dist/documents
+        key: ${{ runner.os }}-cache-dist-folder }}
 
     - name: Determine whether firebase items must be fetched wholefully or not
       if: ${{ env.LAST_DEPLOY != -1 }}
       env:
-        ARTICLES_SLUG_CACHE_HIT: ${{ steps.articles-slug-cache.outputs.cache-hit }}
-        ARTICLES_DIST_CACHE_HIT: ${{ steps.articles-dist-cache.outputs.cache-hit }}
+        SLUGS_CACHE_HIT: ${{ steps.cache-slugs.outputs.cache-hit }}
+        DIST_CACHE_HIT: ${{ steps.cache-dist-dynamic-routes.outputs.cache-hit }}
       run: |
-        # fetch all items if dist/articles folder does not exist
-        if [ $ARTICLES_DIST_CACHE_HIT != 'true']
+        # fetch all items if dist folder does not exist
+        if [ $DIST_CACHE_HIT != 'true']
         then 
           echo "FIREBASE_FETCH_ALL=1" >> $GITHUB_ENV
           exit 0
         endif
 
-        if [ $ARTICLES_SLUG_CACHE_HIT != 'true']
+        if [ $SLUGS_CACHE_HIT != 'true']
         then
           echo "FIREBASE_FETCH_ALL=1" >> $GITHUB_ENV
         else

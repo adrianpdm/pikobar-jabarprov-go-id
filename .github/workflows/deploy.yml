@@ -110,6 +110,8 @@ jobs:
       env:
         LAST_DEPLOY: ${{ env.LAST_DEPLOY }}
         FIREBASE_FETCH_ALL: ${{ env.FIREBASE_FETCH_ALL }}
+        FIREBASE_SDK_CONFIG: ${{ env.FIREBASE_SDK_CONFIG }}
+        FIREBASE_ADMIN_CONFIG: ${{ env.FIREBASE_ADMIN_CONFIG }}
       run: |
         npm run generate
         ls -R dist

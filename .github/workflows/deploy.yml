@@ -115,4 +115,10 @@ jobs:
       run: |
         npm run generate
         ls -R dist
+
+    - name: Upload /dist build artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: dist
+        path: dist/
     

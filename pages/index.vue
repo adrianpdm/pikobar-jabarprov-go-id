@@ -254,7 +254,7 @@
       </div>
       <div class="hidden lg:block w-1/2 order-1 mr-4">
         <img
-          src="https://firebasestorage.googleapis.com/v0/b/jabarprov-covid19.appspot.com/o/public%2Fakb.jpeg?alt=media&token=6455e6ee-2edc-457e-ab73-d4ce2468ca19"
+          src="https://firebasestorage.googleapis.com/v0/b/jabarprov-covid19.appspot.com/o/public%2Fakb-new.png?alt=media&token=0ff7c0a2-c95c-4282-a2b8-68e7930e3610"
           class="w-full h-full object-contain object-top"
         >
       </div>
@@ -287,7 +287,7 @@
       </h2>
       <div class="flex flex-col items-stretch">
         <article class="html-content text-gray-800 flex flex-col lg:flex-row">
-          <img v-lazy="'https://firebasestorage.googleapis.com/v0/b/jabarprov-covid19.appspot.com/o/public%2Fcovid-19.jpg?alt=media&token=3dbbb851-546b-4154-be27-ed8692f194a5'" class="hidden lg:block w-full h-full lg:w-1/2 lg:mr-8 object-cover object-center rounded-lg">
+          <img v-lazy="'https://firebasestorage.googleapis.com/v0/b/jabarprov-covid19.appspot.com/o/public%2Fkonten-covid-19.png?alt=media&token=c617647b-1812-49a7-b156-cb9a66fdf4e6'" class="hidden lg:block w-full h-full lg:w-1/2 lg:mr-8 object-cover object-center rounded-lg">
           <div class="w-full lg:w-1/2">
             <h3 class="text-xl text-black">
               <b>Apa Itu COVID-19?</b>
@@ -520,7 +520,6 @@ export default {
     },
     shareableDocuments () {
       return this.documents
-        .filter((_, index) => index < 6)
         .map((item) => {
           return {
             ...item,
@@ -533,8 +532,6 @@ export default {
   mounted () {
     this.$nextTick(() => {
       this.$store.dispatch('statistics/getCases')
-      this.$store.dispatch('data-kasus-total/getItems')
-      this.$store.dispatch('data-sebaran-jabar/getItems')
       this.$store.dispatch('banners/getItems')
       this.$store.dispatch('news/getItems')
       if (process.browser) {

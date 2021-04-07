@@ -224,7 +224,7 @@
 
 <script>
 import { ContentLoader } from 'vue-content-loader'
-import moment from 'moment'
+import { formatDateDayIndonesia } from '~/lib/date'
 import { formatNumber, formatNumberPercent } from '~/lib/number'
 
 export default {
@@ -281,12 +281,12 @@ export default {
       this.data.pcr.positif = this.jsonDataKasusTotal.pcr_positif
       this.data.pcr.negatif = this.jsonDataKasusTotal.pcr_negatif
       this.data.pcr.invalid = this.jsonDataKasusTotal.pcr_invalid
-      this.data.pcr.tanggal = moment(this.jsonDataKasusTotal.pcr_date, 'YYYY-MM-DD').lang('id').format('dddd, DD MMM YYYY')
+      this.data.pcr.tanggal = formatDateDayIndonesia(this.jsonDataKasusTotal.pcr_date)
       this.data.pcr_individu.total = this.jsonDataKasusTotal.pcr_individu_total
       this.data.pcr_individu.positif = this.jsonDataKasusTotal.pcr_individu_positif
       this.data.pcr_individu.negatif = this.jsonDataKasusTotal.pcr_individu_negatif
       this.data.pcr_individu.invalid = this.jsonDataKasusTotal.pcr_individu_invalid
-      this.data.pcr_individu.tanggal = moment(this.jsonDataKasusTotal.pcr_individu_date, 'YYYY-MM-DD').lang('id').format('dddd, DD MMM YYYY')
+      this.data.pcr_individu.tanggal = formatDateDayIndonesia(this.jsonDataKasusTotal.pcr_individu_date)
       this.data.pcr_persentase_by_total.positif = this.data.pcr.positif / this.data.pcr.total * 100
       this.data.pcr_persentase_by_total.negatif = this.data.pcr.negatif / this.data.pcr.total * 100
       this.data.pcr_persentase_by_total.invalid = this.data.pcr.invalid / this.data.pcr.total * 100

@@ -131,7 +131,7 @@
 
 <script>
 import { ContentLoader } from 'vue-content-loader'
-import moment from 'moment'
+import { formatDateDayIndonesia } from '~/lib/date'
 
 export default {
   name: 'DataPCR',
@@ -185,7 +185,7 @@ export default {
     },
     dataKasusTotalMetadata (val) {
       this.metadata = val
-      this.date_update = moment(this.metadata.last_update, 'YYYY-MM-DD').lang('id').format('dddd, DD MMM YYYY')
+      this.date_update = formatDateDayIndonesia(this.metadata.last_update)
     }
   },
   mounted () {

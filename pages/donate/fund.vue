@@ -15,9 +15,7 @@
       </div>
     </section>
     <section id="donate-now" class="m-4 mt-8 md:m-8 md:mt-16">
-      <div class="p-5 md:p-8 rounded-lg border border-solid border-gray-300 bg-white">
-        <FundParticipationForm />
-      </div>
+      <div class="p-5 md:p-8 rounded-lg border border-solid border-gray-300 bg-white" />
     </section>
     <section class="m-4 md:m-8 rounded-lg border border-solid border-gray-300 bg-white">
       <KPBMContact />
@@ -29,10 +27,12 @@ import { faArrowCircleRight } from '@fortawesome/free-solid-svg-icons'
 import { analytics } from '~/lib/firebase'
 
 export default {
+  validate ({ redirect }) {
+    return redirect('/')
+  },
   components: {
     DonationBanners: () => import('../../components/_pages/donate/Banner'),
-    KPBMContact: () => import('../../components/_pages/donate/KPBMContact'),
-    FundParticipationForm: () => import('../../components/_pages/donate/FundParticipationForm')
+    KPBMContact: () => import('../../components/_pages/donate/KPBMContact')
   },
   data () {
     return {

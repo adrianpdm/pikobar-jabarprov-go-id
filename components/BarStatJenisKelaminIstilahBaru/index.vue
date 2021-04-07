@@ -21,6 +21,10 @@
       </select>
     </div>
     <hr>
+    <div v-if="messageNone" class="m-5 mb-0 p-2" style="background:#e6e6e6">
+      <b>Disclaimer :</b>
+      <p>{{ messageNone }}</p>
+    </div>
     <div
       class="w-full p-5"
       style="min-height: 300px;"
@@ -70,6 +74,7 @@
 <script>
 import { ContentLoader } from 'vue-content-loader'
 import { GChart } from 'vue-google-charts'
+import { formatNumber, formatNumberPercent } from '~/lib/number'
 
 export default {
   name: 'BarStatJenisKelaminIstilahBaru',
@@ -85,7 +90,7 @@ export default {
         'Selesai Isolasi/ Sembuh',
         'Meninggal'
       ],
-      optionSelected: 'Isolasi/ Dalam Perawatan',
+      optionSelected: 'Terkonfirmasi',
       jsonDataKasusGender: {
         confirmation_total: {
           perempuan: 0,
@@ -104,6 +109,10 @@ export default {
           lakilaki: 0
         }
       },
+      angkaNone: 0,
+      angkaTotal: 0,
+      persenNone: 0,
+      messageNone: '',
       pieChartJenisKelaminData: [
         ['Jenis Kelamin', 'Data'],
         ['Pria', 0],
@@ -137,13 +146,15 @@ export default {
   watch: {
     dataKasusGender (val) {
       this.jsonDataKasusGender = val
-      this.changeGroupJenisKelamin('Isolasi/ Dalam Perawatan')
+      this.changeGroupJenisKelamin('Terkonfirmasi')
     }
   },
   mounted () {
     this.getDataKasusGender()
   },
   methods: {
+    formatNumber,
+    formatNumberPercent,
     ifNullReturnZero (str) {
       if (str === null) {
         return 0
@@ -204,6 +215,18 @@ export default {
         ['Wanita', tempJenisKelaminWanita],
         ['N/A', tempJenisKelaminNA]
       ]
+
+      if (tempJenisKelaminNA) {
+        self.angkaNone = tempJenisKelaminNA
+        self.angkaTotal = tempJenisKelaminPria + tempJenisKelaminWanita + tempJenisKelaminNA
+        self.persenNone = (self.angkaNone / self.angkaTotal) * 100
+        self.messageNone = 'Terdapat ' + self.formatNumber(self.angkaNone) + '(' + formatNumberPercent(self.persenNone) + '%) dari total ' + formatNumber(self.angkaTotal) + ' belum dilengkapi dengan keterangan Jenis Kelamin sehingga tidak dapat divisualisasikan.'
+      } else {
+        self.angkaNone = 0
+        self.angkaTotal = tempJenisKelaminPria + tempJenisKelaminWanita + 0
+        self.persenNone = (self.angkaNone / self.angkaTotal) * 100
+        self.messageNone = ''
+      }
     },
     // get data
     getDataKasusGender () {

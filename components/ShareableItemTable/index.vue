@@ -55,6 +55,16 @@
           </tr>
         </tbody>
       </table>
+      <br>
+      <div class="flex justify-center items-center">
+        <button
+          v-if="showLoadMore"
+          class="w-full lg:w-1/3 px-6 py-2 rounded-lg bg-brand-blue hover:bg-blue-400 text-white font-bold uppercase tracking-wider"
+          @click="onLoadMore"
+        >
+          Load More
+        </button>
+      </div>
     </slot>
   </div>
 </template>
@@ -72,6 +82,10 @@ export default {
     items: {
       type: Array,
       default: () => []
+    },
+    showLoadMore: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -98,6 +112,9 @@ export default {
     },
     beforeShare (item) {
       onShare(item.shareText)
+    },
+    onLoadMore () {
+      this.$emit('load:more')
     }
   }
 }

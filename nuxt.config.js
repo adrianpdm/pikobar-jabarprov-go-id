@@ -12,6 +12,7 @@ export default {
     FIREBASE_APP_ID: process.env.FIREBASE_APP_ID,
     FIREBASE_MEASUREMENT_ID: process.env.FIREBASE_MEASUREMENT_ID,
     FIREBASE_PUBLIC_VAPID_KEY: process.env.FIREBASE_PUBLIC_VAPID_KEY,
+    FIREBASE_SDK_CONFIG: process.env.FIREBASE_SDK_CONFIG,
     APP_TITLE,
     URL: process.env.URL,
     WMS_API_KEY: process.env.WMS_API_KEY,

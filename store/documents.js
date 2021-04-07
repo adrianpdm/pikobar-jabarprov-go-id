@@ -3,7 +3,8 @@ import _orderBy from 'lodash/orderBy'
 import { get, getById, ORDER_INDEX, ORDER_TYPE } from '~/api/documents'
 
 export const state = () => ({
-  items: []
+  items: [],
+  lastSnapshot: null
 })
 
 export const getters = {
@@ -17,27 +18,38 @@ export const getters = {
 
 export const mutations = {
   setItems (state, items) {
-    const uniq = _uniqBy([...state.items, ...items], 'id')
-    const ordered = _orderBy(uniq, [ORDER_INDEX], [ORDER_TYPE])
-    state.items = ordered
+    state.items = items
   },
   clearItems (state) {
     state.items = []
   },
   appendItems (state, items) {
-    state.items = [...state.items, ...items]
+    const uniq = _uniqBy([...state.items, ...items], 'id')
+    const ordered = _orderBy(uniq, [ORDER_INDEX], [ORDER_TYPE])
+    state.items = ordered
   },
   prependItems (state, items) {
     state.items = [...items, ...state.items]
+  },
+  setLastSnapshot (state, lastSnapshot) {
+    state.lastSnapshot = lastSnapshot
   }
 }
 
 export const actions = {
-  getItems ({ state, commit }, options = { perPage: 6, fresh: false }) {
+  getItems ({ state, commit }, options = { fresh: false }) {
     if (!state.items || !state.items.length || options.fresh) {
-      return get(options)
-        .then((arr) => {
-          commit('setItems', arr)
+      return get({
+        ...options,
+        lastSnapshot: state.lastSnapshot
+      })
+        .then(({ data, lastSnapshot }) => {
+          if (process.client || process.browser) {
+            commit('appendItems', data)
+            commit('setLastSnapshot', lastSnapshot)
+          } else {
+            commit('setItems', data)
+          }
           return state.items
         })
     }

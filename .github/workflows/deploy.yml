@@ -1,0 +1,126 @@
+name: Deploy
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+    types: [opened, synchronize, reopened]
+jobs:
+  deploy:
+    runs-on: ubuntu-16.04
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Get last deployment timestamp on Netlify
+      uses: fjogeleit/http-request-action@master
+      id: lastDeployment
+      with:
+        url: 'https://api.netlify.com/api/v1/sites/${{ secrets.NETLIFY_SITE_ID }}'
+        method: 'GET'
+        customHeaders: '{"User-Agent":"${{ secrets.NETLIFY_SITE_ID }} (${{ secrets.NETLIFY_USER_EMAIL }})","Authorization":"Bearer ${{ secrets.NETLIFY_ACCESS_TOKEN }}","Accept":"application/json"}'
+
+    - name: Set last deployment timestamp as env variable
+      env:
+        PUBLISHED_DEPLOY: ${{ steps.lastDeployment.outputs.response.published_deploy }} 
+      run: |
+        if [ -z "$PUBLISHED_DEPLOY" ]
+        then
+          echo "LAST_DEPLOY=-1" >> $GITHUB_ENV
+          echo "FIREBASE_FETCH_ALL=1" >> $GITHUB_ENV
+        else
+          echo "LAST_DEPLOY=${{ steps.lastDeployment.outputs.response.published_deploy.published_at }}" >> $GITHUB_ENV
+        fi
+
+    - name: Check firebase credentials
+      env:
+        FIREBASE_SDK_CONFIG: ${{ secrets.FIREBASE_SDK_CONFIG }}
+        FIREBASE_ADMIN_CONFIG: ${{ secrets.FIREBASE_ADMIN_CONFIG }}
+      run: |
+        if [ -z "$FIREBASE_SDK_CONFIG"]
+        then
+          echo "firebase sdk config is nil"
+          exit 1
+        else
+          echo "firebase sdk config is set"
+        fi
+        if [ -z "$FIREBASE_ADMIN_CONFIG"]
+        then
+          echo "firebase admin config is nil"
+          exit 1
+        else
+          echo "firebase admin config is set"
+        fi
+
+    - name: Cache npm dependencies
+      id: cache-npm
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-cache-npm-${{ hashFiles('**/package-lock.json') }}
+
+    - name: Cache dynamic route components
+      id: cache-slugs
+      uses: actions/cache@v2
+      with:
+        path: |
+          pages/articles/_slug.vue
+          pages/documents/_slug.vue
+          pages/infographics/_slug.vue
+        key: ${{ runner.os }}-cache-dynamic-route-slug-${{ hashFiles('pages/articles/_slug.vue') }}
+
+    - name: Cache dynamic route build files
+      id: cache-dist-dynamic-routes
+      uses: actions/cache@v2
+      with:
+        path: |
+          dist/articles
+          dist/infographics
+          dist/documents
+        key: ${{ runner.os }}-cache-dist-folder }}
+
+    - name: Determine whether firebase items must be fetched wholefully or not
+      if: ${{ env.LAST_DEPLOY != -1 }}
+      env:
+        SLUGS_CACHE_HIT: ${{ steps.cache-slugs.outputs.cache-hit }}
+        DIST_CACHE_HIT: ${{ steps.cache-dist-dynamic-routes.outputs.cache-hit }}
+      run: |
+        # fetch all items if dist folder does not exist
+        if [ $DIST_CACHE_HIT != 'true']
+        then 
+          echo "FIREBASE_FETCH_ALL=1" >> $GITHUB_ENV
+          exit 0
+        endif
+
+        if [ $SLUGS_CACHE_HIT != 'true']
+        then
+          echo "FIREBASE_FETCH_ALL=1" >> $GITHUB_ENV
+        else
+          echo "FIREBASE_FETCH_ALL=0" >> $GITHUB_ENV
+        fi
+  
+    - name: Install dependencies
+      run: |
+        echo "Installing NPM packages"
+        npm install
+
+    - name: Generate routes
+      env:
+        LAST_DEPLOY: ${{ env.LAST_DEPLOY }}
+        FIREBASE_FETCH_ALL: ${{ env.FIREBASE_FETCH_ALL }}
+        FIREBASE_SDK_CONFIG: ${{ secrets.FIREBASE_SDK_CONFIG }}
+        FIREBASE_ADMIN_CONFIG: ${{ secrets.FIREBASE_ADMIN_CONFIG }}
+      run: |
+        npm run generate
+        ls -R dist
+
+    - name: Publish
+      uses: netlify/actions/cli@master
+      with:
+        args: deploy --dir=dist
+      env:
+        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_ACCESS_TOKEN }}
+    

@@ -19,15 +19,15 @@ export const getters = {
 
 export const mutations = {
   setItems (state, items) {
-    const uniq = _uniqBy([...state.items, ...items], 'id')
-    const ordered = _orderBy(uniq, [ORDER_INDEX], [ORDER_TYPE])
-    state.items = ordered
+    state.items = items
   },
   clearItems (state) {
     state.items = []
   },
   appendItems (state, items) {
-    state.items = [...state.items, ...items]
+    const uniq = _uniqBy([...state.items, ...items], 'id')
+    const ordered = _orderBy(uniq, [ORDER_INDEX], [ORDER_TYPE])
+    state.items = ordered
   },
   prependItems (state, items) {
     state.items = [...items, ...state.items]
@@ -45,8 +45,12 @@ export const actions = {
         lastSnapshot: state.lastSnapshot
       })
         .then(({ data, lastSnapshot }) => {
-          commit('appendItems', data)
-          commit('setLastSnapshot', lastSnapshot)
+          if (process.client || process.browser) {
+            commit('appendItems', data)
+            commit('setLastSnapshot', lastSnapshot)
+          } else {
+            commit('setItems', data)
+          }
           return state.items
         })
     }

@@ -45,8 +45,8 @@ export default {
       if (this.campaign) {
         const { width, height } = this.campaign
         return {
-          width: width ? `${width}px` : 'unset',
-          height: height ? `${height}px` : 'unset'
+          maxWidth: width ? `${width}px` : 'unset',
+          maxHeight: height ? `${height}px` : 'unset'
         }
       }
       return {}
@@ -109,7 +109,7 @@ export default {
   }
 
   &__image {
-    @apply object-center object-contain
+    @apply w-full h-auto object-center object-contain
     rounded-lg
     cursor-pointer;
   }

@@ -86,24 +86,23 @@ export default {
     })
   },
   mounted () {
-    this.loadData({ sendAnalytics: true })
+    this.isPending = true
+    this.getItems({ perPage: 9, fresh: true })
+      .finally(() => {
+        if (process.browser) {
+          analytics.logEvent('infographic_list_view')
+        }
+        this.isPending = false
+      })
   },
   methods: {
     ...mapActions('infographics', {
       getItems: 'getItems'
     }),
-    loadData ({ sendAnalytics = false } = {}) {
+    async onLoadMore () {
       this.isPending = true
-      this.getItems({ perPage: 9, fresh: true })
-        .finally(() => {
-          if (sendAnalytics && process.browser) {
-            analytics.logEvent('infographic_list_view')
-          }
-          this.isPending = false
-        })
-    },
-    onLoadMore () {
-      this.loadData()
+      await this.getItems({ perPage: 9, fresh: true })
+      this.isPending = false
     },
     beforeDownload (item) {
       onDownload(item.downloadURL, item.title)

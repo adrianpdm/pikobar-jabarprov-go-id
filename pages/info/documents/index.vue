@@ -14,6 +14,8 @@
       <ShareableItemTable
         :columns="shareableDocumentsColumns"
         :items="shareableDocuments"
+        :show-load-more="true"
+        @load:more="onLoadMore"
       />
     </section>
   </div>
@@ -63,7 +65,6 @@ export default {
     },
     shareableDocuments () {
       return this.documents
-        .filter((_, index) => index < 6)
         .map((item) => {
           return {
             ...item,
@@ -75,7 +76,7 @@ export default {
   },
   mounted () {
     this.isPending = true
-    this.getItems({ perPage: 8, fresh: true })
+    this.getItems({ fresh: true })
       .finally(() => {
         if (process.browser) {
           analytics.logEvent('documents_list_view')
@@ -89,6 +90,9 @@ export default {
     }),
     getCellValue (column, row, columnIndex, rowIndex) {
       return _get(row, column.prop)
+    },
+    onLoadMore () {
+      this.getItems({ fresh: true })
     }
   },
   head () {

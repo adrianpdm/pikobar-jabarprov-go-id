@@ -135,7 +135,17 @@
       </div>
       <div class="m-1 mb-0 p-2" style="background:#e6e6e6">
         <b>Disclaimer :</b>
-        <p>Peta di atas merupakan Peta Sebaran Kasus Covid-19 di Jawa Barat dan bukan merupakan Peta Level Kewaspadaan Covid-19 Jawa Barat.</p>
+        <ul style="margin-left: 20px; list-style-type: initial;">
+          <li>
+            Peta di atas merupakan Peta Sebaran Kasus Covid-19 di Jawa Barat dan bukan merupakan Peta Level Kewaspadaan Covid-19 Jawa Barat.
+          </li>
+          <li>
+            Tidak seluruh data kasus memiliki kelengkapan alamat Kota/Kab, Kecamatan dan Kelurahan/Desa (butuh proses verifikasi) sehingga tidak seluruhnya dapat divisualisasikan.
+          </li>
+          <li>
+            Data kasus diatas diupdate setiap hari, dan silahkan cek kembali secara reguler untuk mendapatkan informasi terbaru.
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -166,20 +176,20 @@ export default {
       activeLayer: this.activeRegion,
       activeFilter: this.activeDataCategory,
       activeTitle: {
-        className: 'cluster-confirmation-total',
-        name: 'Terkonfirmasi'
+        name: 'Isolasi/ Dalam Perawatan',
+        className: 'cluster-confirmation-diisolasi'
       },
       isShowFilter: false,
       isShowLayer: false,
       filter: {
-        confirmation_total: true,
-        confirmation_diisolasi: false,
+        confirmation_total: false,
+        confirmation_diisolasi: true,
         confirmation_meninggal: false,
         confirmation_selesai: false
       },
       layer: {
-        kota: false,
-        kecamatan: true,
+        kota: true,
+        kecamatan: false,
         kelurahan: false
       },
       stat: {
@@ -205,8 +215,8 @@ export default {
 
       // data
       distributionPolygonData: [],
-      activeRegion: 'kecamatan',
-      activeDataCategory: 'confirmation_total'
+      activeRegion: 'kota',
+      activeDataCategory: 'confirmation_diisolasi'
     }
   },
   computed: {
@@ -406,11 +416,11 @@ export default {
     toggleSearch () {
     },
     toggleBackToHome () {
-      this.activeRegion = 'kecamatan'
-      this.activeLayer = 'kecamatan'
+      this.activeRegion = 'kota'
+      this.activeLayer = 'kota'
       this.map.flyTo([-6.932694, 107.627449], 8)
 
-      this.setLayer('kecamatan')
+      this.setLayer('kota')
       this.getDataSebaranPolygon(this.activeRegion, this.activeDataCategory)
       this.removeLayer()
       this.createPolygonRegion()

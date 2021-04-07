@@ -117,6 +117,7 @@ jobs:
         ls -R dist
 
     - name: Upload /dist build artifact
+      id: artifact-dist
       uses: actions/upload-artifact@v2
       with:
         name: dist
